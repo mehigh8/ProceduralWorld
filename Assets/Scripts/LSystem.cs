@@ -21,6 +21,7 @@ public class LSystem : MonoBehaviour
     public int iterations;
     public GameObject branch;
     public GameObject turtle;
+    public string xRule;
 
     private string axiom = "X";
     private Stack<TransformInfo> transformStack;
@@ -32,7 +33,7 @@ public class LSystem : MonoBehaviour
         transformStack = new Stack<TransformInfo>();
         rules = new Dictionary<char, string>
         {
-            {'X', "[*+FX]X[+FX][/+F-FX]" },
+            {'X', xRule },
             {'F', "FF" }
         };
 

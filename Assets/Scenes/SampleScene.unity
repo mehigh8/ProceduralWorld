@@ -347,7 +347,10 @@ MonoBehaviour:
   frequency: 1
   lacunarity: 3
   persistence: 0.35
-  plantPrefab: {fileID: 7728415890027789694, guid: 54fc9ba6a014d5846998c7944f202216, type: 3}
+  plantPrefabs:
+  - {fileID: 7728415890027789694, guid: 54fc9ba6a014d5846998c7944f202216, type: 3}
+  - {fileID: 7728415890027789694, guid: c79dd940bb2448c4aa9f99859cae77fc, type: 3}
+  - {fileID: 7728415890027789694, guid: d78fb2d07da0b2b4a85ed1ef65a24a07, type: 3}
   plantCount: 25
 --- !u!154 &2115573899
 TerrainCollider:

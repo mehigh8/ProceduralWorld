@@ -15,7 +15,7 @@ public class TerrainGenerator : MonoBehaviour
     public float lacunarity;
     public float persistence;
     [Header("Plants")]
-    public GameObject plantPrefab;
+    public List<GameObject> plantPrefabs;
     public int plantCount;
 
     void Start()
@@ -72,8 +72,9 @@ public class TerrainGenerator : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             Vector3 startRayPoint = new Vector3(Random.Range(1f, size.x - 1), size.y * 2, Random.Range(1f, size.z - 1));
+            int plantIndex = Random.Range(0, plantPrefabs.Count);
             if (Physics.Raycast(startRayPoint, Vector3.down, out RaycastHit hit, float.MaxValue))
-                Instantiate(plantPrefab, hit.point, Quaternion.identity, transform);
+                Instantiate(plantPrefabs[plantIndex], hit.point, Quaternion.identity, transform);
         }
     }
 }

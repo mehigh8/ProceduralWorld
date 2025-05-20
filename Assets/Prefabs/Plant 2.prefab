@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3226304402571856227}
   - component: {fileID: 4752492874282075803}
   m_Layer: 0
-  m_Name: Plant
+  m_Name: Plant 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,7 +50,7 @@ MonoBehaviour:
   iterations: 3
   branch: {fileID: 3726848837497048463, guid: c31d1f1a64ccecf4b99e255655ba2c06, type: 3}
   turtle: {fileID: 8145527756771634195}
-  xRule: '[*+FX]X[+FX][/+F-FX]'
+  xRule: '[F[+FX][*+FX][/+FX]]'
 --- !u!1 &8145527756771634195
 GameObject:
   m_ObjectHideFlags: 0
