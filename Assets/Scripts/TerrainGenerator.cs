@@ -17,11 +17,22 @@ public class TerrainGenerator : MonoBehaviour
     [Header("Plants")]
     public List<GameObject> plantPrefabs;
     public int plantCount;
+    [Header("NPC")]
+    public GameObject npcPrefab;
+    public int npcCount;
+    [Header("Item")]
+    public GameObject itemPrefab;
+    public int itemCount;
+    [Header("Player")]
+    public GameObject playerPrefab;
 
     void Start()
     {
         terrain.terrainData = GenerateTerrain(terrain.terrainData);
         SpawnPlants(plantCount);
+        SpawnNPCs(npcCount);
+        SpawnItems(itemCount);
+        SpawnPlayer();
     }
 
     private TerrainData GenerateTerrain(TerrainData terrainData)
@@ -76,5 +87,38 @@ public class TerrainGenerator : MonoBehaviour
             if (Physics.Raycast(startRayPoint, Vector3.down, out RaycastHit hit, float.MaxValue))
                 Instantiate(plantPrefabs[plantIndex], hit.point, Quaternion.identity, transform);
         }
+    }
+
+    private void SpawnNPCs(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            Vector3 startRayPoint = new Vector3(Random.Range(1f, size.x - 1), size.y * 2, Random.Range(1f, size.z - 1));
+            if (Physics.Raycast(startRayPoint, Vector3.down, out RaycastHit hit, float.MaxValue))
+            {
+                GameObject npc = Instantiate(npcPrefab, hit.point + Vector3.up, Quaternion.identity, transform);
+                npc.GetComponent<NPCPopulateInformation>().Populate(NPCItemGenerator.GetInstance().GenerateNPC());
+            }
+        }
+    }
+
+    private void SpawnItems(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            Vector3 startRayPoint = new Vector3(Random.Range(1f, size.x - 1), size.y * 2, Random.Range(1f, size.z - 1));
+            if (Physics.Raycast(startRayPoint, Vector3.down, out RaycastHit hit, float.MaxValue))
+            {
+                GameObject item = Instantiate(itemPrefab, hit.point + Vector3.up / 2, Quaternion.identity, transform);
+                item.GetComponent<ItemPopulateInformation>().Populate(NPCItemGenerator.GetInstance().GenerateItem());
+            }
+        }
+    }
+
+    private void SpawnPlayer()
+    {
+        Vector3 startRayPoint = new Vector3(Random.Range(1f, size.x - 1), size.y * 2, Random.Range(1f, size.z - 1));
+        if (Physics.Raycast(startRayPoint, Vector3.down, out RaycastHit hit, float.MaxValue))
+            Instantiate(playerPrefab, hit.point, Quaternion.identity, transform);
     }
 }
