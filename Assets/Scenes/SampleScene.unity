@@ -259,12 +259,13 @@ MonoBehaviour:
   - {fileID: 7728415890027789694, guid: 54fc9ba6a014d5846998c7944f202216, type: 3}
   - {fileID: 7728415890027789694, guid: c79dd940bb2448c4aa9f99859cae77fc, type: 3}
   - {fileID: 7728415890027789694, guid: d78fb2d07da0b2b4a85ed1ef65a24a07, type: 3}
-  plantCount: 25
+  plantCount: 50
   npcPrefab: {fileID: 6279827951931533970, guid: c0313e01072c19c49834417addc889c3, type: 3}
-  npcCount: 10
+  npcCount: 30
   itemPrefab: {fileID: 3115225660996622500, guid: 02b297b341b98c04981c060f754ec201, type: 3}
-  itemCount: 10
+  itemCount: 30
   playerPrefab: {fileID: 3726368109121700624, guid: 71d10eeb145c39743a7b32c7478ba56d, type: 3}
+  portalPrefab: {fileID: 1467659789679802073, guid: a39500c96094d2546a3f2b68c861bb6b, type: 3}
 --- !u!154 &2115573899
 TerrainCollider:
   m_ObjectHideFlags: 0
@@ -312,7 +313,7 @@ Terrain:
   m_StaticShadowCaster: 0
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 10652, guid: 0000000000000000f000000000000000, type: 0}
+  m_MaterialTemplate: {fileID: 2100000, guid: e106e7483d60d604ea11c5a43edd87c6, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1

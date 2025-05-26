@@ -13,6 +13,12 @@ public class RoomFirstDungeonGenerator : MonoBehaviour
     [Header("Painter")]
     public GameObject floorTile;
     public GameObject wallTile;
+    [Header("Prefabs")]
+    public GameObject playerPrefab;
+    public GameObject trapPrefab;
+    public GameObject chestPrefab;
+    public GameObject enemyPrefab;
+    public GameObject portalPrefab;
 
     private List<BoundsInt> roomsList;
 
@@ -32,6 +38,34 @@ public class RoomFirstDungeonGenerator : MonoBehaviour
         floor.UnionWith(corridors);
 
         PaintDungeon(floor);
+
+        // spawn player
+        Instantiate(playerPrefab, roomsList[0].center, Quaternion.identity);
+
+        for (int i = 1; i < roomsList.Count - 1; i++)
+        {
+            int choice = Random.Range(0, 4);
+            switch (choice)
+            {
+                case 0:
+                    GameObject trap = Instantiate(trapPrefab, roomsList[i].center, Quaternion.identity, transform);
+                    break;
+                case 1:
+                    GameObject gold = Instantiate(chestPrefab, roomsList[i].center, Quaternion.identity, transform);
+                    gold.GetComponent<EntityInformation>().LoadGold(Random.Range(100, 500));
+                    break;
+                case 2:
+                    GameObject item = Instantiate(chestPrefab, roomsList[i].center, Quaternion.identity, transform);
+                    item.GetComponent<EntityInformation>().LoadItem(NPCItemGenerator.GetInstance().GenerateItem());
+                    break;
+                case 3:
+                    GameObject enemy = Instantiate(enemyPrefab, roomsList[i].center, Quaternion.identity, transform);
+                    enemy.GetComponent<EntityInformation>().LoadEnemy(NPCItemGenerator.GetInstance().GenerateNPC());
+                    break;
+            }
+        }
+
+        Instantiate(portalPrefab, roomsList[roomsList.Count - 1].center, Quaternion.identity, transform);
     }
 
     private void PaintDungeon(HashSet<Vector2Int> floor)

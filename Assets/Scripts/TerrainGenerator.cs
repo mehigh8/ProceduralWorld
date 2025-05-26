@@ -25,6 +25,8 @@ public class TerrainGenerator : MonoBehaviour
     public int itemCount;
     [Header("Player")]
     public GameObject playerPrefab;
+    [Header("Portal")]
+    public GameObject portalPrefab;
 
     void Start()
     {
@@ -32,6 +34,7 @@ public class TerrainGenerator : MonoBehaviour
         SpawnPlants(plantCount);
         SpawnNPCs(npcCount);
         SpawnItems(itemCount);
+        SpawnPortal();
         SpawnPlayer();
     }
 
@@ -46,11 +49,12 @@ public class TerrainGenerator : MonoBehaviour
     private float[,] GenerateHeights()
     {
         float[,] heights = new float[size.x, size.z];
+        int offset = Random.Range(0, 256);
         for (int x = 0; x < size.x; x++)
         {
             for (int y = 0; y < size.z; y++)
             {
-                heights[x, y] = CalculateFractalNoise(x, y);
+                heights[x, y] = CalculateFractalNoise(x + offset, y + offset);
             }
         }
 
@@ -115,10 +119,17 @@ public class TerrainGenerator : MonoBehaviour
         }
     }
 
+    private void SpawnPortal()
+    {
+        Vector3 startRayPoint = new Vector3(Random.Range(1f, size.x - 1), size.y * 2, Random.Range(1f, size.z - 1));
+        if (Physics.Raycast(startRayPoint, Vector3.down, out RaycastHit hit, float.MaxValue))
+            Instantiate(portalPrefab, hit.point, Quaternion.identity, transform);
+    }
+
     private void SpawnPlayer()
     {
         Vector3 startRayPoint = new Vector3(Random.Range(1f, size.x - 1), size.y * 2, Random.Range(1f, size.z - 1));
         if (Physics.Raycast(startRayPoint, Vector3.down, out RaycastHit hit, float.MaxValue))
-            Instantiate(playerPrefab, hit.point, Quaternion.identity, transform);
+            Instantiate(playerPrefab, hit.point, Quaternion.identity);
     }
 }

@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class ShowInformation : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float visibleRange;
+    public GameObject canvasObject;
+    public bool lookAtPlayer;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null && Vector3.Distance(player.transform.position, transform.position) < visibleRange)
+        {
+            canvasObject.SetActive(true);
+            if (lookAtPlayer)
+                canvasObject.transform.LookAt(player.transform);
+        }
+        else
+        {
+            canvasObject.SetActive(false);
+        }
     }
 }
